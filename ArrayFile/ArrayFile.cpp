@@ -1,5 +1,136 @@
-﻿ // ArrayFile.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
+using namespace std;
+// Task 1
+void task1() {
+    int N, M;
+    cout << "Введіть розмір масиву A: ";
+    cin >> N;
+    cout << "Введіть розмір масиву B: ";
+    cin >> M;
+    int X = N + M;
+    int A[100], B[100], C[100];
+    // введення масиву A
+    cout << "Введіть елементи масиву A:" << endl;
+    for (int i = 0; i < N; ++i) {
+        cin >> A[i];
+    }
+    // введення  масиву B
+    cout << "Введіть елементи масиву B:" << endl;
+    for (int i = 0; i < M; ++i) {
+        cin >> B[i];
+    }
+    // додавання додатних ел. A
+    int indexC = 0;                 //індекс масиву С
+    for (int i = 0; i < N; ++i) {
+        if (A[i] > 0) {
+            C[indexC++] = A[i];
+        }
+    }
+    // додавання додатних ел. B
+    for (int i = 0; i < M; ++i) {
+        if (B[i] > 0) {
+            C[indexC++] = B[i];
+        }
+    }
+    // додавання від'ємних ел. A
+    for (int i = 0; i < N; ++i) {
+        if (A[i] < 0) {
+            C[indexC++] = A[i];
+        }
+    }
+    // додавання від'ємних ел. B
+    for (int i = 0; i < M; ++i) {
+        if (B[i] < 0) {
+            C[indexC++] = B[i];
+        }
+    }
+    // виведення шуканого масиву C
+    cout << "Масив C:" << endl;
+    for (int i = 0; i < X; ++i) {
+        cout << C[i] << " ";
+    }
+}
+// Task 2
+void task2() {
+    int N;
+    cout << "Введіть розмір масиву A: ";
+    cin >> N;
+    int arr[100];
+    cout << "Введіть елементи масиву:" << endl;
+    for (int i = 0; i < N; ++i) {
+        cin >> arr[i];
+    }
+    int ak, bk;
+    cout << "Введіть діапазон ak та bk: ";
+    cin >> ak >> bk;
+    int firstPositiveIndex = -1;//якщо програма зннайде шукане, 
+    int maxElementIndex = -1;   //то видасть якийсь результат і поміняє firstPositiveIndex на якесь значення, 
+    // а якщо ні, то лишиться -1(див. виведення) і скаже що не знайдено
+    int maxElement = INT_MIN; //присвоєння найменшого знач.
+    // пошук шуканого ел.
+    for (int i = 0; i < N; ++i) {
+        if (arr[i] > 0 && firstPositiveIndex == -1) {
+            firstPositiveIndex = i;
+        }
+        if (arr[i] > maxElement && arr[i] >= ak && arr[i] <= bk && i > firstPositiveIndex) {
+            maxElement = arr[i];
+            maxElementIndex = i;
+        }
+    }
+    // виведення 
+    if (maxElementIndex != -1) {//див 66 рядок
+        cout << "Шуканий елемент: " << maxElementIndex << endl;
+    }
+    else {
+        cout << "Шуканий елемент не знайдено." << endl;
+    }
+}
+// Task 3
+// Програма працює як карусель і перетасовує елементи масиву на К позицій
+void task3() {
+    int n, k;
+    cout << "Введіть розмір масиву n: ";
+    cin >> n;
+    cout << "Введіть число позицій зсуву k: ";
+    cin >> k;
+    int A[100];
+    cout << "Введіть елементи масиву:" << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> A[i];
+    }
+    // зсув масиву
+    for (int i = 0; i < k; i++) {
+        int temp = A[n - 1];
+        for (int j = n - 1; j > 0; j--) {
+            A[j] = A[j - 1];
+        }
+        A[0] = temp;
+    }
+    // виведення 
+    for (int i = 0; i < n; i++) {
+        cout << A[i] << " ";
+    }
+}
+int main() {
+    setlocale(LC_CTYPE, "Ukr");
+    int task;
+    cout << "Введіть номер завдання 1, 2, 3: ";
+    cin >> task;
+    switch (task) {
+    case 1:
+        task1();
+        break;
+    case 2:
+        task2();
+        break;
+    case 3:
+        task3();
+        break;
+    default:
+        cout << "Невірний номер завдання." << endl;
+    }
+    return 0;
+}
 
 #include <iostream>
 #include <fstream>
@@ -243,39 +374,7 @@ void ArrayLocal()
 }
 
 
-int main()
-{ 
-    
-    
-    
-    const int MAX_SIZE = 560;
-    std::cout << "Hello World!\n";
-    ShowMainMenu();
-    /*
-    double A[MAX_SIZE], B[MAX_SIZE],C[MAX_SIZE];
-    int n,m;
-    n = RndInputArray(MAX_SIZE, A);
-    WriteArrayTextFile(n, A, "1.txt");
-    m = ReadArrayTextFile(MAX_SIZE, B, "1.txt");
-    cout << " \n m= " << m << endl;
-    for (int i = 0; i < m; i++)
-        cout << B[i] << "   ";
-    WriteArrayBinFile(n, A, "1.bin");
-    m = ReadArrayBinFile(MAX_SIZE, C, "1.bin");
-    cout << " \n m= " << m << endl;
-    for (int i = 0; i < m; i++)
-        cout << C[i] << "   ";
-    cout << "\n  Vector \n";
-    vector<double> vA;
-    ConsoleInputVector(MAX_SIZE, vA);
-    for (auto v : vA) {
-        cout << v << "   ";
-    }
-*/
-    TaskV();
-    return 1;
 
-}
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
